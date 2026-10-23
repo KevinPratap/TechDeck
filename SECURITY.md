@@ -13,4 +13,4 @@ PocketDeck lets a paired phone press keys, type text, open programs and links, a
 - The OBS password is stored encrypted with your Windows account.
 
 ## Reporting a problem
-Please open a private security advisory on the GitHub repository, or email the maintainer, rather than a public issue.
+Please [open a private security advisory](https://github.com/KevinPratap/TechDeck/security/advisories/new) rather than a public issue.

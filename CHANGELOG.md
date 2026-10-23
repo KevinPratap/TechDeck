@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+## 1.2.0
+
+### Design
+- A new look for the editor and the phone: deeper colours, glossy keys with a lit state that glows, glass top bar, smoother dialogs and key entrance animations. Respects reduced-motion settings.
+- New logo and icons for the app, the tray and the phone. The iPhone Home Screen icon now works (PNG instead of SVG).
+- The Connect dialog shows a countdown until the one-time code refreshes.
+- Fixed the Connect dialog clipping its content on narrow windows.
+- Long info-tile values such as timers (`00:18:07`) now fit their tile.
+- Page tabs on the phone fade out at the edge instead of being cut off by the status badges.
+
+### Project
+- New README with screenshots, install guide, FAQ and troubleshooting, plus architecture notes in `docs/`.
+- Contributing guide, code of conduct, issue and pull request templates, Dependabot and release-notes configuration.
+
 ## 1.1.0
 
 ### Security

@@ -306,7 +306,17 @@ function renderConnect() {
   showUrl();
 }
 
+// The QR code is single-use and replaced every 10 minutes; show how long this one has left.
+let pairExpires = 0;
+function tickPair() {
+  const left = pairExpires ? Math.max(0, Math.round((pairExpires - Date.now()) / 1000)) : 0;
+  $('#pair-timer').textContent = pairExpires ? `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}` : '–';
+}
+setInterval(tickPair, 1000);
+
 function showUrl() {
+  pairExpires = urls[0] ? urls[0].expires : 0;
+  tickPair();
   const u = urls[$('#adapter').value || 0];
   $('#qr').src = u ? u.qr : '';
   $('#url').textContent = u ? u.url : 'No network connection found';

@@ -242,3 +242,11 @@ test('"unpair all" disconnects every phone and retires the old QR code', async (
   assert.equal(cfg.data.devices.length, 0);
   deviceToken = cfg.addDevice('Test phone'); // later tests, if any, still have a valid phone
 });
+
+test('the QR link carries the current one-time code and when it expires', () => {
+  const urls = server.urls();
+  for (const u of urls) {
+    assert.ok(u.url.endsWith(`#${server.pairing.code}`));
+    assert.equal(u.expires, server.pairing.expires);
+  }
+});

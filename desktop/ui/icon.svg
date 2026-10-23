@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#09090b"/><rect x="16" y="16" width="30" height="30" rx="7" fill="#3b82f6"/><rect x="54" y="16" width="30" height="30" rx="7" fill="#ef4444"/><rect x="16" y="54" width="30" height="30" rx="7" fill="#a855f7"/><rect x="54" y="54" width="30" height="30" rx="7" fill="#14b8a6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="pd-bg" x1="64" y1="0" x2="448" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#262642"/>
+      <stop offset="1" stop-color="#0a0a10"/>
+    </linearGradient>
+    <linearGradient id="pd-blue" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#80b4ff"/><stop offset="1" stop-color="#2f6bf0"/></linearGradient>
+    <linearGradient id="pd-rose" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff8fa6"/><stop offset="1" stop-color="#e8325a"/></linearGradient>
+    <linearGradient id="pd-violet" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#cba3ff"/><stop offset="1" stop-color="#7c3aed"/></linearGradient>
+    <linearGradient id="pd-teal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#74f3de"/><stop offset="1" stop-color="#0f9d8d"/></linearGradient>
+    <linearGradient id="pd-shine" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".42"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <filter id="pd-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="24"/></filter>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#pd-bg)"/>
+  <rect x="1.5" y="1.5" width="509" height="509" rx="114.5" stroke="#fff" stroke-opacity=".12" stroke-width="3"/>
+  <rect x="76" y="76" width="168" height="168" rx="42" fill="#3b82f6" opacity=".6" filter="url(#pd-glow)"/>
+  <rect x="76" y="76" width="168" height="168" rx="42" fill="url(#pd-blue)"/>
+  <rect x="268" y="76" width="168" height="168" rx="42" fill="url(#pd-rose)"/>
+  <rect x="76" y="268" width="168" height="168" rx="42" fill="url(#pd-violet)"/>
+  <rect x="268" y="268" width="168" height="168" rx="42" fill="url(#pd-teal)"/>
+  <rect x="76" y="76" width="168" height="168" rx="42" fill="url(#pd-shine)"/>
+  <rect x="268" y="76" width="168" height="168" rx="42" fill="url(#pd-shine)"/>
+  <rect x="76" y="268" width="168" height="168" rx="42" fill="url(#pd-shine)"/>
+  <rect x="268" y="268" width="168" height="168" rx="42" fill="url(#pd-shine)"/>
+</svg>

@@ -329,7 +329,9 @@
     label.textContent = w.label || '';
     el.append(value, label);
     live.set(w.id, (_v, text) => {
-      if (text !== undefined) value.textContent = text;
+      if (text === undefined) return;
+      value.textContent = text;
+      value.classList.toggle('long', text.length > 6); // timers like 00:18:07 need a smaller size to fit
     });
     if (hasAction(w.action)) {
       el.classList.add('tappable');

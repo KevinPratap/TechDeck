@@ -111,7 +111,7 @@ class DeckServer extends EventEmitter {
 
   urls() {
     const { port } = this.config.data;
-    return lanAddresses().map((a) => ({ ...a, url: `http://${a.address}:${port}/#${this.pairing.code}` }));
+    return lanAddresses().map((a) => ({ ...a, expires: this.pairing.expires, url: `http://${a.address}:${port}/#${this.pairing.code}` }));
   }
 
   // POST /pair { code, name } -> { token }: trades the one-time code for this phone's own token.
@@ -147,7 +147,7 @@ class DeckServer extends EventEmitter {
       const token = this.config.addDevice(m.name);
       this.newPairing('paired'); // the code that was just used is dead
       this.emit('devices', this.config.publicDevices());
-      this.emit('log', 'A phone was paired');
+      this.emit('log', 'Phone paired: ok');
       reply(200, { token });
     });
   }

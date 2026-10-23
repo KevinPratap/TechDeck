@@ -332,3 +332,54 @@
 .trackpad > * {
   pointer-events: none;
 }
+
+/* ---------- polish ---------- */
+
+.key:not(.has-img):not(.empty),
+.info,
+.slider,
+.dial,
+.trackpad:not(:active) {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 55%);
+}
+
+.key:not(.empty),
+.info,
+.slider,
+.dial,
+.trackpad {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+.key .glyph {
+  filter: drop-shadow(0 2px 8px color-mix(in oklab, var(--c) 50%, transparent));
+}
+
+.key.down {
+  filter: brightness(1.2);
+}
+
+.key.active {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 60%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 calc(var(--k) * 0.3) color-mix(in oklab, var(--c) 55%, transparent),
+    0 10px 26px color-mix(in oklab, var(--c) 30%, transparent);
+}
+
+.slider-fill {
+  box-shadow: 0 0 18px color-mix(in oklab, var(--c) 45%, transparent);
+}
+
+.slider-track {
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.dial .arc {
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--c) 60%, transparent));
+}
+
+.info .value.long {
+  font-size: clamp(11px, calc(var(--k) * 0.15), 26px);
+  letter-spacing: -0.02em;
+}

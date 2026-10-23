@@ -1,0 +1,334 @@
+/* Every widget shares one surface; --c is its accent colour. */
+.key,
+.info,
+.slider,
+.dial,
+.trackpad {
+  --c: #3b82f6;
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--k) * 0.2);
+  background: var(--surface);
+}
+
+/* Keys */
+.key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--k) * 0.07);
+  padding: 8px;
+  border-color: color-mix(in oklab, var(--c) 30%, transparent);
+  background: color-mix(in oklab, var(--c) 16%, var(--surface));
+  color: color-mix(in oklab, var(--c) 55%, white);
+  transition: transform 0.08s ease-out, background-color 0.15s, color 0.15s;
+}
+
+.key .glyph {
+  font-size: calc(var(--k) * 0.34);
+  line-height: 1;
+}
+
+.key .label {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--text);
+  font-size: max(11px, calc(var(--k) * 0.13));
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.key.down {
+  transform: scale(0.95);
+  background: color-mix(in oklab, var(--c) 30%, var(--surface));
+}
+
+.key.active {
+  border-color: var(--c);
+  background: color-mix(in oklab, var(--c) 72%, black);
+  color: white;
+  box-shadow: 0 0 calc(var(--k) * 0.22) color-mix(in oklab, var(--c) 45%, transparent);
+}
+
+.key.empty {
+  border: 1px dashed rgba(255, 255, 255, 0.05);
+  background: transparent;
+}
+
+.key.has-img {
+  justify-content: flex-end;
+  background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.75)), var(--img) center / cover;
+}
+
+.key.has-img .glyph:empty {
+  display: none;
+}
+
+/* Brief feedback after the PC answers. */
+.key.ok::after,
+.key.err::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  animation: fade 0.5s ease-out forwards;
+}
+
+.key.ok::after {
+  background: rgba(34, 197, 94, 0.3);
+}
+
+.key.err::after {
+  background: rgba(239, 68, 68, 0.4);
+}
+
+.key.err,
+.slider.err,
+.dial.err {
+  animation: shake 0.3s;
+}
+
+@keyframes fade {
+  to { opacity: 0; }
+}
+
+@keyframes shake {
+  25% { translate: -3px; }
+  75% { translate: 3px; }
+}
+
+/* Info tiles */
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  text-align: center;
+}
+
+.info .value {
+  max-width: 100%;
+  color: var(--text);
+  font-size: clamp(15px, calc(var(--k) * 0.24), 40px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  white-space: pre-line;
+}
+
+.info .label {
+  max-width: 100%;
+  overflow: hidden;
+  color: color-mix(in oklab, var(--c) 55%, white);
+  font-size: 11px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.info.tappable.down {
+  transform: scale(0.96);
+}
+
+/* Sliders */
+.slider {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+}
+
+.slider-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.slider-head .name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.slider-head .glyph {
+  color: color-mix(in oklab, var(--c) 60%, white);
+  font-size: 16px;
+}
+
+.slider-head .value {
+  flex: none;
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.slider-track {
+  position: relative;
+  flex: 1;
+  min-height: 36px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--bg);
+  cursor: pointer;
+  touch-action: none;
+}
+
+.slider-fill {
+  position: absolute;
+  background: linear-gradient(0deg, color-mix(in oklab, var(--c) 80%, black), var(--c));
+}
+
+.slider.v .slider-fill {
+  inset: auto 0 0 0;
+  height: calc(var(--p, 0) * 100%);
+}
+
+/* Narrow vertical sliders: value on top, name below the track. */
+.slider.v .slider-head {
+  display: contents;
+}
+
+.slider.v .value {
+  order: 0;
+  text-align: center;
+  font-size: 13px;
+}
+
+.slider.v .slider-track {
+  order: 1;
+}
+
+.slider.v .name {
+  order: 2;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.slider.h .slider-track {
+  flex: none;
+  height: 40px;
+}
+
+.slider.h .slider-fill {
+  inset: 0 auto 0 0;
+  width: calc(var(--p, 0) * 100%);
+}
+
+/* Dials */
+.dial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+}
+
+.dial svg {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  max-width: 150px;
+  touch-action: none;
+  cursor: grab;
+}
+
+.dial .track,
+.dial .arc {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.dial .track {
+  stroke: var(--bg);
+}
+
+.dial .arc {
+  stroke: var(--c);
+}
+
+.dial .knob {
+  fill: var(--surface-2);
+  stroke: var(--line);
+}
+
+.dial .pointer {
+  stroke: var(--text);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.dial-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  line-height: 1.2;
+}
+
+.dial-strip .label {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dial-strip .value {
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Trackpad */
+.trackpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background:
+    radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 14px 14px,
+    var(--surface);
+  color: var(--muted);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.trackpad .glyph {
+  font-size: 22px;
+  opacity: 0.6;
+}
+
+.trackpad .label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.trackpad.touching {
+  border-color: color-mix(in oklab, var(--c) 60%, transparent);
+}
+
+.trackpad > * {
+  pointer-events: none;
+}

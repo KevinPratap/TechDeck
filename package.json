@@ -1,0 +1,64 @@
+{
+  "name": "pocketdeck",
+  "productName": "PocketDeck",
+  "version": "1.1.0",
+  "description": "Use any phone as a Stream Deck for OBS, hotkeys, audio and more.",
+  "author": "Kevin Pratap Sidhu",
+  "license": "MIT",
+  "private": true,
+  "main": "desktop/main.js",
+  "scripts": {
+    "start": "electron .",
+    "server": "node desktop/cli.js",
+    "lint": "eslint .",
+    "icons": "node scripts/make-icons.js",
+    "dist": "electron-builder --win nsis",
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@nut-tree-fork/nut-js": "^4.2.6",
+    "lucide-static": "^0.460.0",
+    "obs-websocket-js": "^5.0.8",
+    "qrcode": "^1.5.4",
+    "ws": "^8.22.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "electron": "^45.0.0",
+    "electron-builder": "^25.1.8",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0"
+  },
+  "build": {
+    "appId": "app.pocketdeck.desktop",
+    "productName": "PocketDeck",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "desktop/**",
+      "phone/**",
+      "package.json",
+      "!**/*.map"
+    ],
+    "asarUnpack": [
+      "desktop/native/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "desktop/ui/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "PocketDeck",
+      "runAfterFinish": true,
+      "artifactName": "PocketDeck-Setup-${version}.${ext}"
+    }
+  }
+}

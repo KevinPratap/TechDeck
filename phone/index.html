@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#09090b">
+  <meta name="color-scheme" content="dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PocketDeck">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="widgets.css">
+  <title>PocketDeck</title>
+</head>
+<body>
+  <header class="bar">
+    <span id="status" class="status" role="status" aria-label="Disconnected"></span>
+    <select id="profile" class="profile" aria-label="Profile" hidden></select>
+    <nav id="tabs" class="tabs" aria-label="Pages"></nav>
+    <div class="badges">
+      <span id="rec" class="badge rec" hidden>REC</span>
+      <span id="live" class="badge live" hidden>LIVE</span>
+      <span id="obs" class="badge quiet" hidden>OBS offline</span>
+    </div>
+    <button id="fs" class="icon-btn" type="button" aria-label="Full screen">
+      <span class="icon" style="--icon: url(icons/maximize.svg)"></span>
+    </button>
+  </header>
+
+  <main id="deck" class="deck"></main>
+
+  <section id="overlay" class="overlay" hidden>
+    <div class="overlay-card">
+      <img src="icon.svg" alt="" width="52" height="52">
+      <h1>PocketDeck</h1>
+      <p id="overlay-msg"></p>
+      <span id="spinner" class="spinner" hidden></span>
+    </div>
+  </section>
+
+  <div id="toast" class="toast" role="alert"></div>
+
+  <script src="widgets.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

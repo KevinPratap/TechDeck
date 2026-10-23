@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: file: http://127.0.0.1:*; style-src 'self' 'unsafe-inline'; script-src 'self'">
+  <link rel="stylesheet" href="editor.css">
+  <title>PocketDeck</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="icon.svg" alt="" width="22" height="22"> PocketDeck</div>
+    <div class="topbar-actions">
+      <button id="open-connect" class="chip" type="button">
+        <span id="phones-dot" class="dot"></span><span id="phones-text">No phones</span>
+      </button>
+      <button id="open-settings-obs" class="chip" type="button">
+        <span id="obs-dot" class="dot"></span><span id="obs-text">OBS offline</span>
+      </button>
+      <button id="open-connect-cta" class="btn primary" type="button"><span class="icon" data-icon="qr-code"></span>Connect phone</button>
+      <button id="open-settings" class="btn ghost square" type="button" aria-label="Settings"><span class="icon" data-icon="settings"></span></button>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <section>
+      <div class="section-head">
+        <h2>Profiles</h2>
+        <button id="add-profile" class="btn ghost square sm" type="button" aria-label="Add profile"><span class="icon" data-icon="plus"></span></button>
+      </div>
+      <ul id="profiles" class="nav-list"></ul>
+    </section>
+    <section>
+      <div class="section-head">
+        <h2>Pages</h2>
+        <button id="add-page" class="btn ghost square sm" type="button" aria-label="Add page"><span class="icon" data-icon="plus"></span></button>
+      </div>
+      <ul id="pages" class="nav-list"></ul>
+    </section>
+    <section class="activity">
+      <div class="section-head"><h2>Activity</h2></div>
+      <ol id="log" class="log"></ol>
+    </section>
+  </aside>
+
+  <main class="canvas">
+    <div class="canvas-bar">
+      <input id="page-name" class="title-input" aria-label="Page name" spellcheck="false">
+      <div class="grid-size">
+        <select id="cols" aria-label="Columns"></select>
+        <span>×</span>
+        <select id="rows" aria-label="Rows"></select>
+      </div>
+      <button id="del-page" class="btn ghost sm danger" type="button">Delete page</button>
+    </div>
+    <p id="page-msg" class="notice" hidden></p>
+    <div class="stage">
+      <div id="grid" class="grid"></div>
+    </div>
+    <p class="canvas-hint">Click a cell to add or edit. Drag to move. Drag the corner handle to resize.</p>
+  </main>
+
+  <aside class="inspector">
+    <div id="insp-empty" class="empty-state">
+      <span class="icon" data-icon="mouse-pointer-2"></span>
+      <p>Select a cell to add a key, slider, dial, info tile or trackpad.</p>
+    </div>
+    <form id="insp" hidden>
+      <header class="insp-head">
+        <span id="insp-kind" class="kind"></span>
+        <span id="insp-where" class="where"></span>
+      </header>
+      <div id="insp-body"></div>
+      <footer id="insp-actions" class="insp-foot">
+        <button id="test" class="btn" type="button">Test</button>
+        <button id="clear" class="btn ghost danger" type="button">Remove</button>
+        <p id="test-result" class="result" role="status"></p>
+      </footer>
+    </form>
+  </aside>
+
+  <dialog id="connect-dialog" class="dialog">
+    <form method="dialog" class="dialog-head">
+      <h2>Connect a phone</h2>
+      <button class="btn ghost square sm" aria-label="Close"><span class="icon" data-icon="x"></span></button>
+    </form>
+    <div class="connect">
+      <img id="qr" class="qr" alt="QR code for the phone">
+      <div class="connect-side">
+        <ol class="steps">
+          <li>Join the same Wi-Fi as this computer.</li>
+          <li>Scan the code with the phone camera.</li>
+          <li>Optional: Add to Home Screen for full screen.</li>
+        </ol>
+        <label class="field">Network
+          <select id="adapter"></select>
+        </label>
+        <div class="url-row">
+          <code id="url" class="url"></code>
+          <button id="copy-url" class="btn ghost sm" type="button">Copy</button>
+        </div>
+        <p class="hint">Each code works once and expires after 10 minutes. It refreshes by itself.</p>
+        <h3>Paired phones</h3>
+        <ul id="clients" class="clients"></ul>
+        <button id="reset" class="btn ghost sm danger" type="button">Unpair all phones</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="settings-dialog" class="dialog narrow">
+    <form method="dialog" class="dialog-head">
+      <h2>Settings</h2>
+      <button class="btn ghost square sm" aria-label="Close"><span class="icon" data-icon="x"></span></button>
+    </form>
+    <h3>OBS <span id="obs-status" class="pill"></span></h3>
+    <label class="field">WebSocket address <input id="obs-url" spellcheck="false"></label>
+    <label class="field">Password <input id="obs-pass" type="password" autocomplete="off"></label>
+    <p class="hint">In OBS open Tools → WebSocket Server Settings, enable the server and copy the password from Show Connect Info.</p>
+    <p id="obs-error" class="hint error"></p>
+    <h3>App</h3>
+    <label class="check"><input id="autostart" type="checkbox"> Start with Windows</label>
+  </dialog>
+
+  <dialog id="profile-dialog" class="dialog narrow">
+    <form method="dialog" class="dialog-head">
+      <h2>Profile settings</h2>
+      <button class="btn ghost square sm" aria-label="Close"><span class="icon" data-icon="x"></span></button>
+    </form>
+    <label class="field">Name <input id="profile-name" spellcheck="false"></label>
+    <label class="field">Switch to this profile when these programs are in front
+      <input id="profile-apps" placeholder="obs64, discord" spellcheck="false">
+    </label>
+    <div class="row">
+      <button id="detect-app" class="btn" type="button"><span class="icon" data-icon="crosshair"></span>Detect program</button>
+      <span id="profile-msg" class="hint"></span>
+    </div>
+    <p class="hint">Phones set to Auto follow these rules. Windows only.</p>
+    <div class="dialog-foot">
+      <button id="del-profile" class="btn ghost danger" type="button">Delete profile</button>
+    </div>
+  </dialog>
+
+  <dialog id="icon-dialog" class="dialog wide">
+    <form method="dialog" class="dialog-head">
+      <h2>Choose an icon</h2>
+      <button class="btn ghost square sm" aria-label="Close"><span class="icon" data-icon="x"></span></button>
+    </form>
+    <input id="icon-search" class="search" placeholder="Search icons" spellcheck="false">
+    <div id="icon-grid" class="icon-grid"></div>
+    <div class="icon-foot">
+      <input id="icon-text" placeholder="Or type an emoji or text" maxlength="4">
+      <button id="icon-use-text" class="btn" type="button">Use text</button>
+      <button id="icon-none" class="btn ghost" type="button">No icon</button>
+    </div>
+  </dialog>
+
+  <script src="editor.js"></script>
+</body>
+</html>

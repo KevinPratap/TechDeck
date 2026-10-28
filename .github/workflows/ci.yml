@@ -48,7 +48,7 @@ jobs:
           v="${GITHUB_REF_NAME#v}"
           awk -v v="$v" '$0 ~ "^## " v "$" {f=1; next} /^## / {f=0} f' CHANGELOG.md > RELEASE_NOTES.md
           test -s RELEASE_NOTES.md || echo "See CHANGELOG.md" > RELEASE_NOTES.md
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: dist/*.exe
           generate_release_notes: true

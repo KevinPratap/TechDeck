@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@nut-tree-fork/nut-js": "^4.2.6",
-    "lucide-static": "^0.460.0",
+    "lucide-static": "^1.62.0",
     "obs-websocket-js": "^5.0.8",
     "qrcode": "^1.5.4",
     "ws": "^8.22.0"

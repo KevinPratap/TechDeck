@@ -22,7 +22,7 @@
     "lucide-static": "^0.460.0",
     "obs-websocket-js": "^5.0.8",
     "qrcode": "^1.5.4",
-    "ws": "^8.22.0"
+    "ws": "^8.22.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
